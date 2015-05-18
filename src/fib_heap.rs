@@ -1,21 +1,12 @@
+//! Fibonacci heap implementation
+
 use std::rc::Rc;
 use std::cell::RefCell;
 use std::iter::repeat;
 
 use std::mem::swap;
 
-pub type RcNode = Rc<RefCell<Node>>;  
-// what to use ???
-/*
-use std::ops::{Deref, DerefMut};
-
-struct RcNode(Rc<RefCell<Node>>);
-
-impl Deref for RcNode {
-    type Target = Rc<RefCell<Node>>;
-    fn deref(&self) -> &Rc<RefCell<Node>> { &self.0 }
-}
-*/
+type RcNode = Rc<RefCell<Node>>;
 
 trait SuperNode<KeyT>
 {
@@ -31,7 +22,7 @@ trait SuperNode<KeyT>
     fn set_child(&self, new_child: Self) -> ();
     fn has_right(&self)-> bool;
 }
-
+/// My Node ;-)
 struct Node {
     child:  Option<RcNode>,
     left:   Option<RcNode>,
@@ -132,17 +123,17 @@ fn kill_lr_links(node: &RcNode)
     */
 }
 
-pub struct FibHeap {
-    pub min: Option<RcNode>,
-    pub n_roots: usize,
-    pub n_all: usize,
+pub struct FibonacciHeap {
+    min: Option<RcNode>,
+    n_roots: usize,
+    n_all: usize,
 }
 
-
-impl FibHeap {
+impl FibonacciHeap {
+    /// Returns empty FibonacciHeap
     pub fn new() -> Self
     {
-        FibHeap
+        FibonacciHeap
         {
             min: None,
             n_roots: 0,
@@ -227,7 +218,7 @@ impl FibHeap {
     fn consolidate(&mut self) -> ()
     {
         #![allow(non_snake_case)]
-        let Dn = ((self.n_all as f32).log(1.6).floor() as usize) ; // max degree assessment
+        let Dn = (self.n_all as f32).log(1.6).floor() as usize; // max degree assessment
 
 
         let mut A:Vec<Option<RcNode>> = repeat(None).take(Dn).collect();
@@ -299,6 +290,6 @@ impl FibHeap {
         self.n_roots -= 1;
     }
 
-} // impl FibHeap
+} // impl FibonacciHeap
 
 

@@ -1,19 +1,19 @@
-
-
-mod fib_heap;
-use fib_heap::FibHeap;
+extern crate FibHeap;
+use FibHeap::fib_heap::FibonacciHeap;
 
 extern crate rand;
 use rand::Rng;
 
 
+
 #[test]
 fn insert_test() -> ()
 {
+    //let size = 10_000_000;
     let size = 1_000;
     println!("Initialization with size {}", size);
 
-    let mut foo = FibHeap::new();
+    let mut foo = FibonacciHeap::new();
 
     let mut rng = rand::thread_rng();
     for _ in 0..size
@@ -24,12 +24,14 @@ fn insert_test() -> ()
     assert!(foo.get_size() == size);
 }
 
+
 #[test]
 fn extract_min_test() -> ()
 {
+    // let size = 1_000_000;
     let size = 1_000;
 
-    let mut foo = FibHeap::new();
+    let mut foo = FibonacciHeap::new();
     let mut array: Vec<u32> = Vec::new();
 
     let mut rng = rand::thread_rng();
