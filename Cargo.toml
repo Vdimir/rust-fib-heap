@@ -1,0 +1,7 @@
+[package]
+name = "FibHeap"
+version = "0.1.0"
+authors = ["vladimir"]
+
+[dependencies]
+rand = "*" # Or a specific version
